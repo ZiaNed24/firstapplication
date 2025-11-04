@@ -1,5 +1,7 @@
+using FirstApplication.Mappings;
 using FirstApplication.Models;
 using FirstApplication.Repositories;
+using FirstApplication.Repository.Interfaces;
 using FirstApplication.Services;
 using FirstApplication.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -18,6 +20,18 @@ builder.Services.AddDbContext<CompanyManagementContext>(options =>
 // ? Register Repositories and Services with interfaces
 builder.Services.AddScoped<IEmployeeRepo, EmployeeRepository>();
 builder.Services.AddScoped<IEmployeeService, EmployeeService>();
+builder.Services.AddScoped<IDepartmentService,DepartmentService>();
+builder.Services.AddScoped<IDepartmentRepo,DepartmentRepo>();
+builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        // Ignore cycles completely
+        options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
+
+        // Optional: make JSON look nice
+        options.JsonSerializerOptions.WriteIndented = true;
+    });
 
 var app = builder.Build();
 

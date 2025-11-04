@@ -23,5 +23,12 @@ namespace FirstApplication.Repositories
         {
             return await _context.Employees.FirstOrDefaultAsync(e => e.EmployeeId == id);
         }
+        public async Task<Employee> AddEmployeeAsync(Employee employee)
+        {
+            _context.Employees.Add(employee);
+            await _context.SaveChangesAsync();
+            return employee;
+        }
+
     }
 }

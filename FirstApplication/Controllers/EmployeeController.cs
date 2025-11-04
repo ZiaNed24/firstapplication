@@ -1,4 +1,7 @@
-﻿using FirstApplication.Services;
+﻿using AutoMapper;
+using FirstApplication.DTOs;
+using FirstApplication.Models;
+using FirstApplication.Services;
 using FirstApplication.Services.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -10,10 +13,12 @@ namespace FirstApplication.Controllers
     public class EmployeeController : ControllerBase
     {
         private readonly IEmployeeService _employeeService;
+        private readonly IMapper _mapper;
 
-        public EmployeeController(IEmployeeService employeeService)
+        public EmployeeController(IEmployeeService employeeService,IMapper mapper)
         {
             _employeeService = employeeService;
+            _mapper = mapper;   
         }
 
         [HttpGet]
@@ -30,6 +35,19 @@ namespace FirstApplication.Controllers
                 return NotFound(); 
             }
             return Ok(emp);
+        }
+        [HttpPost]
+        public async Task<IActionResult> AddEmployee([FromBody] EmployeeDto dto)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            // map DTO → entity
+            var employee = _mapper.Map<Employee>(dto);
+
+            var createdEmployee = await _employeeService.AddEmployeeAsync(employee);
+
+            return CreatedAtAction(nameof(GetEmpById), new { id = createdEmployee.EmployeeId }, createdEmployee);
         }
     }
 }

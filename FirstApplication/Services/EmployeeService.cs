@@ -22,5 +22,13 @@ namespace FirstApplication.Services
         {
             return await _employeeRepository.GetEmployeeByIdAsync(id);
         }
+        public async Task<Employee> AddEmployeeAsync(Employee employee)
+        {
+            if (string.IsNullOrEmpty(employee.FirstName))
+            {
+                throw new ArgumentNullException("employee cannot be empty");
+            }
+            return await _employeeRepository.AddEmployeeAsync(employee);
+        }
     }
 }

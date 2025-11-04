@@ -6,5 +6,6 @@ namespace FirstApplication.Services.Interfaces
     {
         Task<IEnumerable<Employee>> GetAllEmployeesAsync();
         Task<Employee?> GetEmployeeByIdAsync(int id);
+        Task<Employee> AddEmployeeAsync(Employee employee);
     }
 }
