@@ -16,7 +16,11 @@ namespace FirstApplication.Repositories
 
         public async Task<IEnumerable<Employee>> GetAllEmployeesAsync()
         {
-            return await _context.Employees.ToListAsync();
+            return await _context.Employees
+                           .Include(e => e.Job)
+                           .Include(e => e.Department)
+                           .Include(e => e.Manager)
+                           .ToListAsync();
         }
 
         public async Task<Employee?> GetEmployeeByIdAsync(int id)

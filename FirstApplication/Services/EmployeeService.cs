@@ -1,4 +1,6 @@
-﻿using FirstApplication.Models;
+﻿using AutoMapper;
+using FirstApplication.DTOs;
+using FirstApplication.Models;
 using FirstApplication.Repositories;
 using FirstApplication.Services.Interfaces;
 
@@ -7,15 +9,19 @@ namespace FirstApplication.Services
     public class EmployeeService : IEmployeeService
     {
         private readonly IEmployeeRepo _employeeRepository;
+        private readonly IMapper _mapper;
 
-        public EmployeeService(IEmployeeRepo employeeRepository)
+        public EmployeeService(IEmployeeRepo employeeRepository,IMapper mapper)
         {
             _employeeRepository = employeeRepository;
+            _mapper = mapper;
         }
 
-        public async Task<IEnumerable<Employee>> GetAllEmployeesAsync()
+        public async Task<IEnumerable<EmployeeResponseDto>> GetAllEmployeesAsync()
         {
-            return await _employeeRepository.GetAllEmployeesAsync();
+            var emp= await _employeeRepository.GetAllEmployeesAsync();
+            var res = _mapper.Map<IEnumerable<EmployeeResponseDto>>(emp);
+            return res; 
         }
 
         public async Task<Employee?> GetEmployeeByIdAsync(int id)

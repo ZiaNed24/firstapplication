@@ -31,6 +31,12 @@ namespace FirstApplication.Mappings
                 .ForMember(de => de.DepartmentId, opt => opt.Ignore())
                 .ForMember(de => de.Location, opt => opt.Ignore())
                 .ForMember(de => de.Employees, opt => opt.Ignore());
+            CreateMap<Employee, EmployeeResponseDto>()
+     .ForMember(dest => dest.JobTitle, opt => opt.MapFrom(src => src.Job.JobTitle))
+     .ForMember(dest => dest.DepartmentName, opt => opt.MapFrom(src => src.Department.DepartmentName))
+     .ForMember(dest => dest.ManagerName, opt => opt.MapFrom(src =>
+         src.Manager != null ? $"{src.Manager.FirstName} {src.Manager.LastName}" : "Company Head / PM"));
+
         }
     }
 }

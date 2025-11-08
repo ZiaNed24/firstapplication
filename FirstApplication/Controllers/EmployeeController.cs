@@ -25,7 +25,10 @@ namespace FirstApplication.Controllers
         public async Task<IActionResult> GetAll()
         {
             var emp=await _employeeService.GetAllEmployeesAsync();
-            return Ok(emp); 
+            if (emp == null || !emp.Any())
+                return NotFound("No employees found.");
+
+            return Ok(emp);
         }
         [HttpGet("id")]
         public async Task<IActionResult> GetEmpById(int id)
