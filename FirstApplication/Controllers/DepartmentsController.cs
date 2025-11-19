@@ -3,6 +3,7 @@ using FirstApplication.DTOs;
 using FirstApplication.Models;
 using FirstApplication.Services;
 using FirstApplication.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -19,6 +20,7 @@ namespace FirstApplication.Controllers
             _departmentService = departService;
             _mapper = mapper;
         }
+        [Authorize]
         [HttpGet("id")]
         public async Task<IActionResult> GetDeptById(int id)
         {
@@ -29,6 +31,7 @@ namespace FirstApplication.Controllers
             }
             return Ok(emp);
         }
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> AddDepartment([FromBody] DepartmentDto dto)
         {

@@ -3,6 +3,7 @@ using FirstApplication.DTOs;
 using FirstApplication.Models;
 using FirstApplication.Services;
 using FirstApplication.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -20,7 +21,7 @@ namespace FirstApplication.Controllers
             _employeeService = employeeService;
             _mapper = mapper;   
         }
-
+        [Authorize]
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
@@ -30,6 +31,7 @@ namespace FirstApplication.Controllers
 
             return Ok(emp);
         }
+        [Authorize]
         [HttpGet("id")]
         public async Task<IActionResult> GetEmpById(int id)
         {
@@ -39,6 +41,7 @@ namespace FirstApplication.Controllers
             }
             return Ok(emp);
         }
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> AddEmployee([FromBody] EmployeeDto dto)
         {
