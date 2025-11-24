@@ -72,6 +72,7 @@ namespace MI.CRM.API.Controllers
         }
 
         // ✅ Login
+        [AllowAnonymous]
         [HttpPost("login")]
         public async Task<IActionResult> Login(LoginDto dto)
         {
@@ -108,7 +109,7 @@ namespace MI.CRM.API.Controllers
             });
         }
 
-        // ✅ Forgot Password → Email reset link
+        
         [HttpPost("forgot-password")]
         public async Task<IActionResult> ForgotPassword([FromBody] ForgotPasswordDto dto)
         {
@@ -132,7 +133,7 @@ namespace MI.CRM.API.Controllers
             );
 
             var resetToken = new JwtSecurityTokenHandler().WriteToken(token);
-            var resetLink = $"http://localhost:4200/reset-password?token={resetToken}&email={user.Email}";
+            var resetLink = $"https://localhost:7028/Account/ResetPassword?token={resetToken}&email={user.Email}";
 
             // ✅ Send Email via SMTP Gmail
             try
