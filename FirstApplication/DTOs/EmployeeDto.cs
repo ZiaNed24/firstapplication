@@ -10,13 +10,14 @@ namespace FirstApplication.DTOs
 		public string? FirstName { get; set; }
 		public string LastName { get; set; } = null!;
 		public string Email { get; set; } = null!;
-		public string? PhoneNumber { get; set; }
+        public string EmploymentStatus { get; set; }
+        public string? PhoneNumber { get; set; }
 		public DateOnly HireDate { get; set; }
 		public int? JobId { get; set; }
 		public decimal? Salary { get; set; }
 		public int? ManagerId { get; set; }
 		public int? DepartmentId { get; set; }
-
+		public int? RoleId {  get; set; }	
 		public List<AddressDto>? Addresses { get; set; }
 		public List<DependentDto>? Dependents { get; set; }
 	}
@@ -58,5 +59,6 @@ namespace FirstApplication.DTOs
         public string? DepartmentName { get; set; }
         public string? ManagerName { get; set; }
         public decimal? Salary { get; set; }
+		public string? EmploymentStatus { get; set; }
     }
 }

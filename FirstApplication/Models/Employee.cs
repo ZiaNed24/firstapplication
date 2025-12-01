@@ -28,7 +28,10 @@ public partial class Employee
     [StringLength(100)]
     [Unicode(false)]
     public string Email { get; set; } = null!;
-
+    [Column("EmploymentStatus")]
+    [StringLength(100)]
+    [Unicode(false)]
+    public string EmploymentStatus { get; set; } = null!;
     [Column("phone_number")]
     [StringLength(20)]
     [Unicode(false)]
@@ -48,6 +51,9 @@ public partial class Employee
 
     [Column("department_id")]
     public int? DepartmentId { get; set; }
+
+    [Column("role_id")]
+    public int? RoleId { get; set; }
 
     [InverseProperty("Employee")]
     public virtual ICollection<Address> Addresses { get; set; } = new List<Address>();
